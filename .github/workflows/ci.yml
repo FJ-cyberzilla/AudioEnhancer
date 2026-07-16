@@ -20,8 +20,8 @@ jobs:
           enable-cache: true
 
       - name: Sync Dependencies (Including Dev)
-        # The --dev flag is key here to install ruff, mypy, and pytest
-        run: uv sync --dev
+        # Explicitly syncing the 'dev' group ensures ruff, mypy, and pytest are installed
+        run: uv sync --group dev
 
       - name: Run Linting (Ruff)
         run: uv run ruff check src/ tests/

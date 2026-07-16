@@ -1,30 +1,30 @@
-"""Strictly typed configuration management using Pydantic."""
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-from typing import Literal
-from pydantic_settings import BaseSettings
-from pydantic import Field
+[project]
+name = "nexus-enhancer"
+version = "2.0.0"
+dependencies = [
+    "pedalboard>=0.9.8",
+    "rich>=13.7.0",
+    "pydantic>=2.6.0",
+    "pydantic-settings>=2.2.0",
+    "numpy>=1.26.0"
+]
 
-class EnhancerConfig(BaseSettings):
-    """
-    SOTA Configuration model. 
-    Can be overridden by Environment variables (e.g., NEXUS_TARGET_BITRATE).
-    """
-    quality_profile: Literal["Broadcast", "Studio", "Mastering"] = Field(
-        default="Studio", 
-        description="The DSP chain complexity profile."
-    )
-    target_bitrate: int = Field(
-        default=320000, 
-        description="Target MP3 bitrate in bps."
-    )
-    chunk_size_frames: int = Field(
-        default=44100 * 2, # ~2 seconds at 44.1kHz
-        description="Frames per processing chunk to maintain low RAM footprint."
-    )
-    output_suffix: str = Field(
-        default="_nexus_master", 
-        description="Appended to processed filenames."
-    )
+# Define development dependencies that uv will sync in CI
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.4.0",
+    "mypy>=1.9.0",
+    "pytest>=8.0.0",
+]
 
-    class Config:
-        env_prefix = "NEXUS_"
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true

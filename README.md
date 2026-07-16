@@ -1,5 +1,6 @@
 ### Nexus Audio Processor 
 
+[![CodeQL Advanced](https://github.com/FJ-cyberzilla/AudioEnhancer/actions/workflows/codeql.yml/badge.svg)](https://github.com/FJ-cyberzilla/AudioEnhancer/actions/workflows/codeql.yml)
 - (2026 SOTA Edition)
 
 ## Overview

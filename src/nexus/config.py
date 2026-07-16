@@ -1,30 +1,32 @@
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+"""Configuration management for Nexus Audio Enhancer."""
 
-[project]
-name = "nexus-enhancer"
-version = "2.0.0"
-dependencies = [
-    "pedalboard>=0.9.8",
-    "rich>=13.7.0",
-    "pydantic>=2.6.0",
-    "pydantic-settings>=2.2.0",
-    "numpy>=1.26.0"
-]
+from pydantic_settings import BaseSettings
 
-# Define development dependencies that uv will sync in CI
-[tool.uv]
-dev-dependencies = [
-    "ruff>=0.4.0",
-    "mypy>=1.9.0",
-    "pytest>=8.0.0",
-]
 
-[tool.ruff]
-line-length = 100
-target-version = "py311"
+class EnhancerConfig(BaseSettings):
+    """
+    Application configuration using Pydantic Settings.
+    Environment variables (e.g. NEXUS_OUTPUT_SUFFIX) will override defaults.
+    """
 
-[tool.mypy]
-strict = true
-ignore_missing_imports = true
+    output_suffix: str = "_enhanced"
+    quality_profile: str = "Studio"
+    chunk_size_frames: int = 44100
+
+    def get_config_summary(self) -> str:
+        """Returns a summary of the current configuration."""
+        return f"Profile: {self.quality_profile}, Suffix: {self.output_suffix}"
+
+    def get_chunk_size(self) -> int:
+        """Returns the chunk size."""
+        return self.chunk_size_frames
+
+    # pylint: disable=too-few-public-methods
+    class Config:
+        """Pydantic configuration."""
+
+        env_prefix = "NEXUS_"
+
+    def get_prefix(self) -> str:
+        """Returns the env prefix."""
+        return self.Config.env_prefix

@@ -5,6 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "nexus-enhancer"
 version = "2.0.0"
+requires-python = ">=3.12"
 dependencies = [
     "pedalboard>=0.9.8",
     "rich>=13.7.0",
@@ -13,25 +14,20 @@ dependencies = [
     "numpy>=1.26.0"
 ]
 
-[project.optional-dependencies]
+# This is the modern uv standard for dev groups
+[dependency-groups]
 dev = [
     "ruff>=0.4.0",
     "mypy>=1.9.0",
     "pytest>=8.0.0",
 ]
 
-[tool.hatch.metadata]
-allow-direct-references = true
-
 [tool.hatch.build.targets.wheel]
 packages = ["src/nexus"]
 
-[tool.hatch.build.targets.wheel.force-include]
-"src/nexus" = "nexus"
-
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py312"
 
 [tool.mypy]
 strict = true

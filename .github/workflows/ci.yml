@@ -20,7 +20,7 @@ jobs:
           enable-cache: true
 
       - name: Sync Dependencies
-        # Using --group dev matches the [project.optional-dependencies] section
+        # This will now successfully find the 'dev' group in dependency-groups
         run: uv sync --group dev
 
       - name: Run Linting (Ruff)

@@ -19,8 +19,8 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Sync Dependencies (Including Dev)
-        # Explicitly syncing the 'dev' group ensures ruff, mypy, and pytest are installed
+      - name: Sync Dependencies
+        # Using --group dev matches the [project.optional-dependencies] section
         run: uv sync --group dev
 
       - name: Run Linting (Ruff)

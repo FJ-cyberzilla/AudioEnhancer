@@ -17,3 +17,18 @@ Concurrency: Multi-threaded I/O with GIL-bypass
 ## Toolchain: uv managed
 Installation
 Ensure uv is installed.
+
+- Clone the repository
+git clone <repo-url>
+cd nexus-enhancer
+
+- Sync dependencies and build environment
+uv sync
+
+- Execute the pipeline
+uv run nexus
+
+- Production Pipeline
+Config Layer: Environment variables (e.g., NEXUS_TARGET_BITRATE=320000) override defaults.
+DSP Layer: The AudioEngine orchestrates the pedalboard chain.
+UI Layer: The UIManager reports status via a non-blocking generator loop.
